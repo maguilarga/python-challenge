@@ -38,19 +38,36 @@ with open(csv_file, newline='') as in_csvfile:
 
 Winner = ""
 Win_Votes = 0
-print("Election Result")
-print("----------------------------")
-out_line = "Total Votes: {:1,d}".format(NumVoters)
-print(out_line)
-print("----------------------------")
-for cand, votes in Cand_List.items():
-    out_line = "{}: {:1.3f}% ({:,d})".format(cand,(votes/NumVoters)*100,votes)
+
+# Specify the file to write to
+csv_file = os.path.join("", "PyPoll.out")
+
+# Open the file using "write" mode. Specify the variable to hold the contents
+with open(csv_file, 'w', newline='') as out_csvfile:
+    # new line is NOT working ???
+
+    print("Election Result")
+    out_csvfile.write("Election Result")
+    print("----------------------------")
+    out_csvfile.write("----------------------------")
+    out_line = "Total Votes: {:1,d}".format(NumVoters)
     print(out_line)
-    if votes > Win_Votes:
-        Winner = cand
-        Win_Votes = votes
-print("----------------------------")
-print(f"Winner: {Winner}")
-print("----------------------------")
+    out_csvfile.write(out_line)
+    print("----------------------------")
+    out_csvfile.write("----------------------------")
+    for cand, votes in Cand_List.items():
+        out_line = "{}: {:1.3f}% ({:,d})".format(cand,(votes/NumVoters)*100,votes)
+        print(out_line)
+        out_csvfile.write(out_line)
+        if votes > Win_Votes:
+            Winner = cand
+            Win_Votes = votes
+    print("----------------------------")
+    out_csvfile.write("----------------------------")
+    out_line = "Winner: {}".format(Winner)
+    print(out_line)
+    out_csvfile.write(out_line)
+    print("----------------------------")
+    out_csvfile.write("----------------------------")    
 # print(Cand_List)
 # instructions talk about "each dataset provided", is there extra ones?????
