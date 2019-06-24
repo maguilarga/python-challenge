@@ -11,5 +11,5 @@ in_file = os.path.join(".", "analyze_paragrah.txt")
 with open(in_file, 'r') as infile:
 
     # Store all of the text inside a variable
-     paragraph = text.read()
+     paragraph = infile.read()
 
