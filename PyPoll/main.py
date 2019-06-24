@@ -8,20 +8,20 @@ Cand_List = {}
 Candidate = ""
 
 # Specify path and file name
-# in_filepath = "/C/Rice/Data_Analytics/RICEHOU201906DATA1/HW/03-Python/Instructions/PyPoll/Resources/"
-csv_file = os.path.join(".", "election_data.csv")
+# csv_file = os.path.join(".", "election_data.csv")
+csv_file = os.path.join(os.sep, "Rice", "Data_Analytics", "RICEHOU201906DATA1", "HW", 
+    "03-Python", "Instructions", "PyPoll", "Resources", "election_data.csv")
 
 # Read in the CSV file
 with open(csv_file, newline='') as in_csvfile:
-    
     # CSV reader specifies delimiter and variable that holds contents
-    csvreader = csv.reader(in_csvfile, delimiter=',')
+     csvreader = csv.reader(in_csvfile, delimiter=',')
 
     # Read the header row first (skip this step if there is now header)
-    csv_header = next(csvreader)
+     next(csvreader, None)
     
     # Read each row of data after the header
-    for row in csvreader:
+     for row in csvreader:
         NumVoters += 1
         Candidate = row[2]
         if Candidate in Cand_List:
