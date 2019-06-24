@@ -9,7 +9,7 @@ SumChange = 0
 Grt_Inc_Dec = ["", 0, "", 0]
 
 # Specify path and file name
-# csv_file = os.path.join("", "budget_data.csv")
+# csv_file = os.path.join(".", "budget_data.csv")
 csv_file = os.path.join(os.sep, "Rice", "Data_Analytics", "RICEHOU201906DATA1", "HW", 
     "03-Python", "Instructions", "PyPoll", "Resources", "election_data.csv")
 
@@ -24,18 +24,25 @@ with open(csv_file, newline='') as in_csvfile:
 
     # Read each row of data after the header
     for row in csvreader:
+        # Calculate the number of months
         NumMonths += 1
+        # Calculate the total of profit/losses
         Revenue += int(row[1])
+        # In the first month there is NO change in value, therefore, no calculation
         if NumMonths > 1:
+            # Calculate the change from the previous month
             Change = int(row[1]) - Change
+            # Verify if the decrease/increase has been larger than previous months'
             if Change > int(Grt_Inc_Dec[1]):
                 Grt_Inc_Dec[0] = row[0]
                 Grt_Inc_Dec[1] = Change
             elif Change < int(Grt_Inc_Dec[3]):
                 Grt_Inc_Dec[2] = row[0]
                 Grt_Inc_Dec[3] = Change
-
+            
+            # Require this calculation to provide "Average  Change" 
             SumChange += Change
+        # Store this month's change to calculate the change in the next iteration
         Change = int(row[1])  
 
 # Specify the file to write to
@@ -44,6 +51,7 @@ csv_file = os.path.join(".", "PyBank.out")
 # Open the file using "write" mode. Specify the variable to hold the contents
 with open(csv_file, 'w', newline='') as out_csvfile:
     
+    # First we print on screen then we write to the file
     print("Financial Analysis")
     out_csvfile.write("Financial Analysis\n")
     print("----------------------------")

@@ -2,7 +2,7 @@
 import os
 import csv
 
-## CHECK VARIABLES
+# Initialize variables
 NumVoters = 0
 Cand_List = {}
 Candidate = ""
@@ -22,13 +22,17 @@ with open(csv_file, newline='') as in_csvfile:
     
     # Read each row of data after the header
      for row in csvreader:
+         # Calculate number of people that voted
         NumVoters += 1
+        # get the candidate's name
         Candidate = row[2]
+        # if the candidate is in the dictionary already add one vote, if it is NOt add it
         if Candidate in Cand_List:
             Cand_List[Candidate] += 1
         else:
             Cand_List[Candidate] = 1
 
+# initialize variables to determine the winner
 Winner = ""
 Win_Votes = 0
 
@@ -38,6 +42,7 @@ csv_file = os.path.join(".", "PyPoll.out")
 # Open the file using "write" mode. Specify the variable to hold the contents
 with open(csv_file, 'w', newline='') as out_csvfile:
 
+    # First we print on screen then we write to the file
     print("Election Result")
     out_csvfile.write("Election Result\n")
     print("----------------------------")
@@ -47,6 +52,10 @@ with open(csv_file, 'w', newline='') as out_csvfile:
     out_csvfile.write(out_line)
     print("----------------------------")
     out_csvfile.write("----------------------------\n")
+    
+    # Determine the winner, look through the dictionary and select the cadidate with
+    # the greatest number of votes
+ 
     for cand, votes in Cand_List.items():
         out_line = "{}: {:1.3f}% ({:,d})\n".format(cand,(votes/NumVoters)*100,votes)
         print(out_line)
@@ -54,6 +63,7 @@ with open(csv_file, 'w', newline='') as out_csvfile:
         if votes > Win_Votes:
             Winner = cand
             Win_Votes = votes
+    
     print("----------------------------")
     out_csvfile.write("----------------------------\n")
     out_line = "Winner: {}\n".format(Winner)
